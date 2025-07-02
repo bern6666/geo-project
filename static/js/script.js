@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
+    // Globale Variablen für Route und Marker
+    var currentRoute = null;
+    var currentMarker = null;
+
     // Benutzerdefinierte Pan-Buttons
     L.Control.PanButtons = L.Control.extend({
         options: { position: 'topright' },
@@ -46,6 +50,17 @@ document.addEventListener('DOMContentLoaded', function() {
         var button = document.getElementById('wetter-btn');
         button.classList.add('loading');
         document.getElementById('wetter').innerText = '';
+        
+        // Entferne bestehenden Marker und Route
+        if (currentMarker) {
+            map.removeLayer(currentMarker);
+            currentMarker = null;
+        }
+        if (currentRoute) {
+            map.removeLayer(currentRoute);
+            currentRoute = null;
+        }
+
         fetch(`/wetter-geocode/${ort}`)
             .then(response => {
                 if (!response.ok) {
@@ -63,9 +78,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 var lon = data.koordinaten.lon;
                 var wetter = data.wetter.weather[0].description;
                 var temp = data.wetter.main.temp;
-                document.getElementById('wetter').innerText = `Wetter in ${ort}: ${wetter}, ${temp}°C`;
-                L.marker([lat, lon]).addTo(map)
-                    .bindPopup(`${ort}: ${wetter}, ${temp}°C`)
+                document.getElementById('wetter').innerText = `Wetter in ${ort}: ${wetter}, ${temp}\u00B0C`;
+                currentMarker = L.marker([lat, lon]).addTo(map)
+                    .bindPopup(`${ort}: ${wetter}, ${temp}\u00B0C`)
                     .openPopup();
                 map.setView([lat, lon], 10);
             })
@@ -83,6 +98,17 @@ document.addEventListener('DOMContentLoaded', function() {
         var button = document.getElementById('route-btn');
         button.classList.add('loading');
         document.getElementById('route').innerText = '';
+        
+        // Entferne bestehenden Marker und Route
+        if (currentMarker) {
+            map.removeLayer(currentMarker);
+            currentMarker = null;
+        }
+        if (currentRoute) {
+            map.removeLayer(currentRoute);
+            currentRoute = null;
+        }
+
         fetch(`/route/${start}/${ziel}`)
             .then(response => {
                 if (!response.ok) {
@@ -97,9 +123,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
                 var distance = (data.route.distance / 1000).toFixed(2);
-                document.getElementById('route').innerText = `Strecke von ${start} nach ${ziel}: ${distance} km`;
+                var duration = (data.route.duration / 60).toFixed(1);
+                document.getElementById('route').innerText = `Route von ${start} nach ${ziel}: ${distance} km, ${duration} min`;
                 var coords = data.route.geometry.coordinates.map(c => [c[1], c[0]]);
-                L.polyline(coords, {color: 'blue'}).addTo(map);
+                currentRoute = L.polyline(coords, {color: 'blue'}).addTo(map);
                 map.fitBounds(coords);
             })
             .catch(error => {

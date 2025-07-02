@@ -94,6 +94,13 @@ body {
     line-height: 1.5;
 }
 
+/* Notiz */
+.note {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #666;
+}
+
 /* Dark Mode Schalter */
 .dark-mode-toggle {
     margin-top: 20px;
@@ -127,6 +134,10 @@ body {
 
 .sidebar.dark-mode .input-group button:hover {
     background-color: #1c86ee;
+}
+
+.sidebar.dark-mode .note {
+    color: #bbb;
 }
 
 /* Responsives Design */
