@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karten-App</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="/static/js/script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Linke Seitenleiste -->
+        <div class="sidebar">
+            <h2>Wetter & Route</h2>
+            <div class="input-group">
+                <label for="ort">Ort für Wetter</label>
+                <input type="text" id="ort" placeholder="z.B. Berlin">
+                <button id="wetter-btn" onclick="getWetter()">Wetter abrufen</button>
+            </div>
+            <div class="input-group">
+                <label for="start">Startort</label>
+                <input type="text" id="start" placeholder="z.B. Berlin">
+                <label for="ziel">Zielort</label>
+                <input type="text" id="ziel" placeholder="z.B. Hamburg">
+                <button id="route-btn" onclick="getRoute()">Route berechnen</button>
+            </div>
+            <div class="output">
+                <h3>Ergebnisse</h3>
+                <div id="wetter"></div>
+                <div id="route"></div>
+            </div>
+            <div class="dark-mode-toggle">
+                <label for="dark-mode">Dark Mode</label>
+                <input type="checkbox" id="dark-mode" onclick="toggleDarkMode()">
+            </div>
+        </div>
+        <!-- Kartenbereich -->
+        <div id="map"></div>
+    </div>
+</body>
+</html>

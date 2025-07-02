@@ -1,0 +1,19 @@
+# Umgebungsvariablen-Dateien
+.env
+*.env
+
+# Python-Cache-Dateien
+__pycache__/
+*.pyc
+
+# Virtuelle Umgebungen
+venv/
+.env/
+.venv/
+
+# IDE-spezifische Dateien
+.vscode/
+.idea/
+
+# Sonstige
+*.log

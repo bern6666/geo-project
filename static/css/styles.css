@@ -1,0 +1,158 @@
+/* Grundlegendes Layout */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Seitenleiste */
+.sidebar {
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.input-group button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    position: relative;
+}
+
+.input-group button:hover {
+    background-color: #0056b3;
+}
+
+/* Ladeanimation */
+.input-group button.loading::after {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    border-top-color: #007bff;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+    position: absolute;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.output {
+    margin-top: 20px;
+}
+
+.output h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+#wetter, #route {
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+/* Dark Mode Schalter */
+.dark-mode-toggle {
+    margin-top: 20px;
+}
+
+.dark-mode-toggle label {
+    font-weight: bold;
+}
+
+/* Kartenbereich */
+#map {
+    flex: 1;
+    height: 100%;
+}
+
+/* Dark Mode (nur Seitenleiste) */
+.sidebar.dark-mode {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+}
+
+.sidebar.dark-mode .input-group input {
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+.sidebar.dark-mode .input-group button {
+    background-color: #1e90ff;
+}
+
+.sidebar.dark-mode .input-group button:hover {
+    background-color: #1c86ee;
+}
+
+/* Responsives Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 40vh;
+        overflow-y: auto;
+    }
+
+    #map {
+        height: 60vh;
+    }
+
+    .input-group input {
+        font-size: 1.2em; /* Größere Eingabefelder für Mobilgeräte */
+        padding: 12px;
+    }
+
+    .input-group button {
+        font-size: 1.2em;
+        padding: 12px;
+    }
+}
